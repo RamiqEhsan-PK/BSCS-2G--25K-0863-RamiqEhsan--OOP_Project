@@ -1,14 +1,16 @@
-GUI:
+Enum GameStatus( Login Menu, Diff, Game, Win, Loss, Leaderboard)
 
-Enum Screen( Login Menu, Diff, Game, Win, Loss, Leaderboard)
-
-
+settargetfps(60)
 
 int main:
 
+initWindow()
+resetBoard()
+
+while(windowShouldclose() == false){
 begindrawing()
 
-switch(Screen){
+switch(GameStatus){
 
 case 0:
 
@@ -19,12 +21,13 @@ case 1:
 
 Menu Screen
 Screen.Render()
-
+ifKeyPressed(D) {Screen = Difficulty}
+ifKeyPressed(P) {PopulateBoard(), Screen = Game}
 case 2:
 
 Diff.Screen
 Screen.Render()
-
+Screen.Select();
 
 case 3:
 Game Screen
@@ -46,6 +49,9 @@ Screen.Render()
 
 EndDrawing()
 
+}
+
+CloseWindow()
 end Main:
 
 class Screen: Virtual void Render() =0;
@@ -54,12 +60,13 @@ class Menu: Public Screen
 
 class Difficulty: Public Screen{
 
+Select(){
 ifkeypressed=E/M/H{
 
 SetDifficulty(E/M/H)
 
 }
-
+}
 
 
 }
@@ -73,7 +80,6 @@ friend class Login
 
 class Login: Public Screen
 
-
 class Game: Public Screen
 
 class Win: Public Screen
@@ -82,14 +88,17 @@ class Lose: Public Screen
 
 class Leadership: Public Screen
 
+
+
+
 class Cell:
 int y;
 int x;
-int tag;
+char tag;
 
 virtual void RevealCell() = 0
 
-class MinedCell: Public Cell
+class MineCell: Public Cell
 char tag=m;
 
 
@@ -120,6 +129,8 @@ Class Minesweeper{
 Char Difficulty.
 int size;
 int MineCount;
+int HiddenSafeCells;
+int MinesFlagged = 0;
 
 Cell++ Board.
 
@@ -130,6 +141,13 @@ if Difficulty == E/M/H{
 
 size = 8/16/20;
 MineCount = 10/15/20
+HiddenSafeCount = size*size - 20; 
+}
+
+Check(){
+
+if(MinesFlagged = MineCount && HiddenSafeCells = 0{
+GameStatus = win;
 }
 
 
@@ -152,10 +170,12 @@ Board[y][x] = C;
 
 
 
-
+//
 PopulateBoard(){
 
 MinesToPlace = MineCount;
+
+
 
 while (MinesToPlace >0) {
 
@@ -180,8 +200,5 @@ SafeCell S
 S.AssignValue();
 
 Board[x][y] = S;
-
-}
-}
-}
-}
+}}}}
+//
