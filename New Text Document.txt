@@ -1,0 +1,187 @@
+GUI:
+
+Enum Screen( Login Menu, Diff, Game, Win, Loss, Leaderboard)
+
+
+
+int main:
+
+begindrawing()
+
+switch(Screen){
+
+case 0:
+
+Login Screen
+Screen.Render()
+
+case 1:
+
+Menu Screen
+Screen.Render()
+
+case 2:
+
+Diff.Screen
+Screen.Render()
+
+
+case 3:
+Game Screen
+Screen.Render()
+
+case 4:
+Win Screen
+Screen.Render()
+
+case 5:
+Loss Screen
+Screen.Render()
+
+case 6:
+Leaderboard Screen
+Screen.Render()
+
+}
+
+EndDrawing()
+
+end Main:
+
+class Screen: Virtual void Render() =0;
+
+class Menu: Public Screen
+
+class Difficulty: Public Screen{
+
+ifkeypressed=E/M/H{
+
+SetDifficulty(E/M/H)
+
+}
+
+
+
+}
+
+class User{
+string username
+
+friend class Login
+}
+
+
+class Login: Public Screen
+
+
+class Game: Public Screen
+
+class Win: Public Screen
+
+class Lose: Public Screen
+
+class Leadership: Public Screen
+
+class Cell:
+int y;
+int x;
+int tag;
+
+virtual void RevealCell() = 0
+
+class MinedCell: Public Cell
+char tag=m;
+
+
+
+
+class SafeCell: Public Cell{
+char tag=s;
+
+int DisplayValue;
+
+void AssignValue{
+
+for(yoffset = -1; yoffset <=1; yoffset ++){
+for (xoffset = -1; xoffset<=1; xoffset++){
+
+if(Board[y+yoffset][x+xoffset].tag = M){
+DisplayValue++} 
+
+}
+}
+}
+
+
+
+
+Class Minesweeper{
+
+Char Difficulty.
+int size;
+int MineCount;
+
+Cell++ Board.
+
+SetDifficulty(char setting) {
+Difficulty = setting;
+
+if Difficulty == E/M/H{
+
+size = 8/16/20;
+MineCount = 10/15/20
+}
+
+
+if char = s{
+SafeCell S
+
+return S
+}
+
+ResetBoard(){
+for y,x {
+
+Cell C;
+
+Board[y][x].set = false;
+Board[y][x] = C;
+}
+}
+
+
+
+
+
+PopulateBoard(){
+
+MinesToPlace = MineCount;
+
+while (MinesToPlace >0) {
+
+int x,y = rand();
+if Board[x][y].set ==false{
+
+set true;
+Minecell M;
+Board[y][x] = M;
+MinestoPlace--;
+}
+}
+
+
+
+for(int y = 0; y<size; y++){
+for(int x = 0; x<size; x++){
+
+if Board[y][x].set == false{
+SafeCell S
+
+S.AssignValue();
+
+Board[x][y] = S;
+
+}
+}
+}
+}
